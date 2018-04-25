@@ -52,11 +52,15 @@ describe OutputHelper do
   describe OutputHelper::Message do
     describe String do
       it "should return a section" do
-        expect("test".section).to match(/┌─+┐\n│ test +│\n└─+┘\n/)
+        expect("test".section).to match(/┌─{82}┐\n│ test {77}│\n└─{82}┘\n/)
+      end
+
+      it "should return a section with a customized box" do
+        expect("test".section top_left: '#', top_right: '%', horizontal: '=', vertical: '|', bottom_left: '<', bottom_right: '>').to match(/#={82}%\n\| test {77}\|\n<={82}>\n/)
       end
 
       it "should return a red section" do
-        expect("test".section(color: :red)).to match(/┌─+┐\n│ \e\[0;31;49mtest\e\[0m +│\n└─+┘\n/)
+        expect("test".section(color: :red)).to match(/┌─{82}┐\n│ \e\[0;31;49mtest\e\[0m {77}│\n└─{82}┘\n/)
       end
 
       it "should return a subsection" do
@@ -66,15 +70,27 @@ describe OutputHelper do
       it "should return a red subsection" do
         expect("test".subsection(color: :red)).to match(/\e\[0;31;49m\|\e\[0m test/)
       end
+
+      it "should return a subsection with prefix" do
+        expect("test".subsection prefix: '>>').to match(/>> test/)
+      end
+
+      it "should return a red subsection with prefix" do
+        expect("test".subsection(color: :red, prefix: '>>')).to match(/\e\[0;31;49m\>>\e\[0m test/)
+      end
     end
 
     describe Kernel do
       it "should output a section" do
-        expect{section "test"}.to output(/┌─+┐\n│ test +│\n└─+┘\n/).to_stdout
+        expect{section "test"}.to output(/┌─{82}┐\n│ test {77}│\n└─{82}┘\n/).to_stdout
+      end
+
+      it "should return a section with a customized box" do
+        expect{section "test", top_left: '#', top_right: '%', horizontal: '=', vertical: '|', bottom_left: '<', bottom_right: '>'}.to output(/#={82}%\n\| test {77}\|\n<={82}>\n/).to_stdout
       end
 
       it "should output a red section" do
-        expect{section "test", color: :red}.to output(/┌─+┐\n│ \e\[0;31;49mtest\e\[0m +│\n└─+┘\n/).to_stdout
+        expect{section "test", color: :red}.to output(/┌─{82}┐\n│ \e\[0;31;49mtest\e\[0m {77}│\n└─{82}┘\n/).to_stdout
       end
 
       it "should output a subsection" do
@@ -83,6 +99,14 @@ describe OutputHelper do
 
       it "should output a red subsection" do
         expect{subsection("test", color: :red)}.to output(/\e\[0;31;49m\|\e\[0m test\n/).to_stdout
+      end
+
+      it "should output a subsection with prefix" do
+        expect{subsection "test", prefix: '>>'}.to output(/>> test\n/).to_stdout
+      end
+
+      it "should output a red subsection with prefix" do
+        expect{subsection("test", color: :red, prefix: '>>')}.to output(/\e\[0;31;49m\>>\e\[0m test\n/).to_stdout
       end
     end
   end

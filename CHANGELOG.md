@@ -1,3 +1,10 @@
+0.1.2 (2018-04-25)
+==================
+
+- String.subsection prefix
+- make String.section box configurable
+- bugfix for String.section without escape characters
+
 0.1.1 (2018-04-25)
 ==================
 

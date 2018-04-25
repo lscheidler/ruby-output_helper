@@ -36,10 +36,22 @@ puts "test".section
 └──────────────────────────────────────────────────────────────────────────────────┘
 => nil
 
+puts "test".section top_left: '[', top_right: ']', horizontal: '=', vertical: '|', bottom_left: '<', bottom_right: '>'
+[==================================================================================]
+| Test                                                                             |
+<==================================================================================>
+=> nil
+
 section "test"
 ┌──────────────────────────────────────────────────────────────────────────────────┐
 │ test                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────┘
+=> nil
+
+section "test", top_left: '[', top_right: ']', horizontal: '=', vertical: '|', bottom_left: '<', bottom_right: '>'
+[==================================================================================]
+| Test                                                                             |
+<==================================================================================>
 => nil
 ```
 
@@ -66,8 +78,16 @@ puts "test".subsection
 | test
 => nil
 
+puts "test".subsection(prefix: '>>')
+>> test
+=> nil
+
 subsection "test"
 | test
+=> nil
+
+subsection "test", prefix: '>>'
+>> test
 => nil
 ```
 
@@ -78,8 +98,16 @@ puts "test".subsection(color: :red)
 \e[0;31;49m|\e[0m test
 => nil
 
+puts "test".subsection(color: :red, prefix: '>>')
+\e[0;31;49m>>\e[0m test
+=> nil
+
 subsection "test", color: :red
 \e[0;31;49m|\e[0m test
+=> nil
+
+subsection "test", color: :red, prefix: '>>'
+\e[0;31;49m>>\e[0m test
 => nil
 ```
 
