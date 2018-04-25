@@ -1,5 +1,7 @@
 # OutputHelper
 
+[![Build Status](https://travis-ci.org/lscheidler/ruby-output_helper.svg?branch=master)](https://travis-ci.org/lscheidler/ruby-output_helper)
+
 Provides output helpers
 
 ## Installation
