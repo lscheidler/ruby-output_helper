@@ -52,7 +52,7 @@ describe OutputHelper do
   describe OutputHelper::Message do
     describe String do
       it "should return a section" do
-        expect("test".section).to match(/┌─+┐\n│ \e\[0;39;49mtest\e\[0m +│\n└─+┘\n/)
+        expect("test".section).to match(/┌─+┐\n│ test +│\n└─+┘\n/)
       end
 
       it "should return a red section" do
@@ -60,7 +60,7 @@ describe OutputHelper do
       end
 
       it "should return a subsection" do
-        expect("test".subsection).to match(/\e\[0;39;49m\|\e\[0m test/)
+        expect("test".subsection).to match(/\| test/)
       end
 
       it "should return a red subsection" do
@@ -70,7 +70,7 @@ describe OutputHelper do
 
     describe Kernel do
       it "should output a section" do
-        expect{section "test"}.to output(/┌─+┐\n│ \e\[0;39;49mtest\e\[0m +│\n└─+┘\n/).to_stdout
+        expect{section "test"}.to output(/┌─+┐\n│ test +│\n└─+┘\n/).to_stdout
       end
 
       it "should output a red section" do
@@ -78,7 +78,7 @@ describe OutputHelper do
       end
 
       it "should output a subsection" do
-        expect{subsection "test"}.to output(/\e\[0;39;49m\|\e\[0m test\n/).to_stdout
+        expect{subsection "test"}.to output(/\| test\n/).to_stdout
       end
 
       it "should output a red subsection" do

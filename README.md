@@ -1,34 +1,87 @@
 # OutputHelper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/output_helper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Provides output helpers
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'output_helper'
+gem 'execute', git: 'https://github.com/lscheidler/ruby-output_helper'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install output_helper
-
 ## Usage
 
-TODO: Write usage instructions here
+### Pretty print runtime
 
-## Development
+```ruby
+require 'bundler/setup'
+require 'output_helper'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+puts Benchmark.realtime{sleep 1.2}.runtime
+1.2007s
+=> nil
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Print section
+
+```ruby
+puts "test".section
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│ test                                                                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+=> nil
+
+section "test"
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│ test                                                                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+=> nil
+```
+
+### Print colored section
+
+```ruby
+puts "test".section(color: :red)
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│ \e[0;31;49mtest\e[0m                                                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+=> nil
+
+section "test", color: :red
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│ \e[0;31;49mtest\e[0m                                                             │
+└──────────────────────────────────────────────────────────────────────────────────┘
+=> nil
+```
+
+### Print subsection
+
+```ruby
+puts "test".subsection
+| test
+=> nil
+
+subsection "test"
+| test
+=> nil
+```
+
+### Print colored section
+
+```ruby
+puts "test".subsection(color: :red)
+\e[0;31;49m|\e[0m test
+=> nil
+
+subsection "test", color: :red
+\e[0;31;49m|\e[0m test
+=> nil
+```
 
 ## Contributing
 

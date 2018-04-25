@@ -31,10 +31,11 @@ module OutputHelper
     #    "┌──────────────────────────────────────────────────────────────────────────────────┐
     #     │ \e[0;31;49mtest\e[0m                                                             │
     #     └──────────────────────────────────────────────────────────────────────────────────┘"
-    def section color: :default
+    def section color: :none
       length = ( self.length > 80 ) ? self.length : 80
+      message = ( color == :none ) ? self : self.colorize(color)
 
-      sprintf "┌─%s─┐\n│ %-#{length+14}s │\n└─%s─┘\n", '─'*length, self.colorize(color), '─'*length
+      sprintf "┌─%s─┐\n│ %-#{length+14}s │\n└─%s─┘\n", '─'*length, message, '─'*length
     end
 
     # return string representation as subsection
@@ -43,8 +44,9 @@ module OutputHelper
     # @return [String] subsection
     # @example
     #   puts "example".subsection #=> "| example"
-    def subsection color: :default
-      sprintf "%s %s", "|".colorize(color), self
+    def subsection color: :none
+      pipe = ( color == :none ) ? '|' : '|'.colorize(color)
+      sprintf "%s %s", pipe, self
     end
 
     # add message output helpers to *Kernel*
@@ -65,7 +67,7 @@ module OutputHelper
       #   │ \e[0;31;49mtest\e[0m                                                             │
       #   └──────────────────────────────────────────────────────────────────────────────────┘
       #   #=> nil
-      def section message, color: :default
+      def section message, color: :none
         puts message.section(color: color)
       end
 
@@ -76,7 +78,7 @@ module OutputHelper
       # @example
       #   subsection "example" #=> nil
       #   | example
-      def subsection message, color: :default
+      def subsection message, color: :none
         puts message.subsection(color: color)
       end
     end
