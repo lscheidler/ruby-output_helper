@@ -14,6 +14,7 @@
 
 require "output_helper/version"
 
+require "output_helper/columns"
 require "output_helper/message"
 require "output_helper/runtime"
 

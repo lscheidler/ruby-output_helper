@@ -18,6 +18,46 @@ And then execute:
 
 ## Usage
 
+### Configuration
+
+```ruby
+OutputHelper::Message.config ascii: true
+
+puts "example".section
+====================================================================================
+# example                                                                          #
+====================================================================================
+
+OutputHelper::Message.config section_horizontal: '-', section_vertical: '='
+
+puts "example".section
+=----------------------------------------------------------------------------------=
+= example                                                                          =
+=----------------------------------------------------------------------------------=
+=> nil
+
+OutputHelper::Message.config section_color: :red
+
+puts "test".section
+=----------------------------------------------------------------------------------=
+= \e[0;31;49mtest\e[0m                                                             =
+=----------------------------------------------------------------------------------=
+=> nil
+```
+
+| config name             | description                           |
+|-------------------------|---------------------------------------|
+| ascii                   | use only ascii characters for output  |
+| section\_color          | color of text                         |
+| section\_top\_left      | top left corner of box                |
+| section\_horizontal     | character for horizontal line         |
+| section\_top\_right     | top right corner of box               |
+| section\_vertical       | character for vertical line           |
+| section\_bottom\_left   | bottom left corner of box             |
+| section\_bottom\_right  | bottom right corner of box            |
+| subsection\_color       | color of text                         |
+| subsection\_prefix      | prefix to use for subsection          |
+
 ### Pretty print runtime
 
 ```ruby
@@ -111,6 +151,27 @@ subsection "test", color: :red
 subsection "test", color: :red, prefix: '>>'
 \e[0;31;49m>>\e[0m test
 => nil
+```
+
+### Columns
+
+```ruby
+table = OutputHelper::Columns.new ['name', 'description']
+table << ({name: 'ant', description: 'insect'})
+table << ({name: 'elephant', description: 'mammalian'})
+puts table
+ name     │ description 
+──────────┼─────────────
+ ant      │ insect      
+ elephant │ mammalian   
+
+OutputHelper::Columns.config ascii: true
+
+puts table
+ name     | description 
+==========|=============
+ ant      | insect      
+ elephant | mammalian   
 ```
 
 ## Contributing

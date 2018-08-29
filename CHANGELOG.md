@@ -1,3 +1,9 @@
+0.1.3 (2018-08-29)
+==================
+
+- added OutputHelper::Columns
+- make output style globally configurable
+
 0.1.2 (2018-04-25)
 ==================
 

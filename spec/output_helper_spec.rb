@@ -110,4 +110,20 @@ describe OutputHelper do
       end
     end
   end
+
+  describe OutputHelper::Columns do
+    before(:all) do
+      @data = OutputHelper::Columns.new ["column1", "column2", "column3"]
+      @data << ({column1: "test", column2: "testtesttest", column3: "test"})
+    end
+
+    it "should output an aligned table" do
+      expect(@data.to_s).to eq(" column1 │ column2      │ column3 \n─────────┼──────────────┼─────────\n test    │ testtesttest │ test    \n")
+    end
+
+    it "should output an extended and aligned table" do
+      @data << ({column1: "abcd", column3: "abcdabcdabcd", column2: "abcd"})
+      expect(@data.to_s).to eq(" column1 │ column2      │ column3      \n─────────┼──────────────┼──────────────\n test    │ testtesttest │ test         \n abcd    │ abcd         │ abcdabcdabcd \n")
+    end
+  end
 end
