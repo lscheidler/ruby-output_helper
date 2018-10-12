@@ -125,5 +125,32 @@ describe OutputHelper do
       @data << ({column1: "abcd", column3: "abcdabcdabcd", column2: "abcd"})
       expect(@data.to_s).to eq(" column1 │ column2      │ column3      \n─────────┼──────────────┼──────────────\n test    │ testtesttest │ test         \n abcd    │ abcd         │ abcdabcdabcd \n")
     end
+
+    it "should iterate over all elements" do
+      count = 0
+      @data.each do |row|
+        case count
+        when 0
+          expect(row).to eq({column1: "test", column2: "testtesttest", column3: "test"})
+        when 1
+          expect(row).to eq({column1: "abcd", column3: "abcdabcdabcd", column2: "abcd"})
+        end
+        count += 1
+      end
+    end
+
+    describe 'formatter' do
+      before(:all) do
+        @data = OutputHelper::Columns.new ["column1", "column2", "column3"]
+        @data.formatter :column2, Proc.new{|row, value| '<b>' + value + '</b>'}
+        @data.formatter :column3, Proc.new{|row, value| value + ' (' + ((row[:column1] == value) ? 't' : 'f') + ')'}
+        @data << ({column1: "test", column2: "testtesttest", column3: "test"})
+        @data << ({column1: "abcd", column3: "abcdabcdabcd", column2: "abcd"})
+      end
+
+      it "should format output, if output formatter are set" do
+        expect(@data.to_s).to eq(" column1 │ column2             │ column3          \n─────────┼─────────────────────┼──────────────────\n test    │ <b>testtesttest</b> │ test (t)         \n abcd    │ <b>abcd</b>         │ abcdabcdabcd (f) \n")
+      end
+    end
   end
 end

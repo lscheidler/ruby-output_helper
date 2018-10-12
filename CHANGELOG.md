@@ -1,3 +1,8 @@
+0.1.4 (2018-10-12)
+==================
+
+- OutputHelper::Columns: added output formatters and an iterator over rows
+
 0.1.3 (2018-08-29)
 ==================
 
