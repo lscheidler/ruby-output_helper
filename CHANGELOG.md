@@ -1,3 +1,8 @@
+0.1.5 (2020-01-05)
+==================
+
+- Fixnum should be used for ruby < 2.4 only, because it is deprecated
+
 0.1.4 (2018-10-12)
 ==================
 

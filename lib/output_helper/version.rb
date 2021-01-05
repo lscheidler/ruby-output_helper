@@ -1,4 +1,4 @@
-# Copyright 2018 Lars Eric Scheidler
+# Copyright 2020 Lars Eric Scheidler
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,5 +15,5 @@
 # offers various output helpers
 module OutputHelper
   # version
-  VERSION = "0.1.4"
+  VERSION = "0.1.5"
 end

@@ -1,4 +1,4 @@
-# Copyright 2018 Lars Eric Scheidler
+# Copyright 2020 Lars Eric Scheidler
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,8 +20,10 @@ require "output_helper/runtime"
 
 module OutputHelper
   # include *Runtime* helpers into *Fixnum*
-  class ::Fixnum
-    include Runtime
+  if RUBY_VERSION < "2.4"
+    class ::Fixnum
+      include Runtime
+    end
   end
 
   # include *Runtime* helpers into *Float*

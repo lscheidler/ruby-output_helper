@@ -1,4 +1,4 @@
-# Copyright 2018 Lars Eric Scheidler
+# Copyright 2020 Lars Eric Scheidler
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ module OutputHelper
   module Runtime
     # return runtime as string (1h 4m 4s)
     #
-    # @param precision [Fixnum] miliseconds precision
+    # @param precision [Integer] miliseconds precision
     def runtime precision: 4
       result = []
       if (hours = self/60/60).to_i > 0
